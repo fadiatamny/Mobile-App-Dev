@@ -1,0 +1,2 @@
+# eslintCommand
+    npm install --save-dev eslint eslint-plugin-react eslint-config-react eslint-plugin-react-native eslint-config-react-native prettier eslint-plugin-prettier eslint-config-prettier eslint-plugin-jest eslint-plugin-import @typescript-eslint/parser @typescript-eslint/eslint-plugin

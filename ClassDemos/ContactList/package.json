@@ -2,9 +2,13 @@
   "checkSubmission": {
     "ex": 0,
     "students": [
-        {"id": "206793275", "fullName": "Fadi Atamny", "email": "fadiatamny@gmail.com"}
+      {
+        "id": "206793275",
+        "fullName": "Fadi Atamny",
+        "email": "fadiatamny@gmail.com"
+      }
     ],
-    "os": "Windows", 
+    "os": "Windows",
     "device": "IOS",
     "submissionDate": "string",
     "delay": false,
@@ -17,7 +21,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "lint": "npx eslint . --ext .tsx --fix"
   },
   "dependencies": {
     "expo": "~37.0.3",
@@ -32,7 +37,19 @@
     "@babel/core": "^7.8.6",
     "@types/react": "~16.9.23",
     "@types/react-native": "~0.61.17",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
     "babel-preset-expo": "~8.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-react": "^1.1.7",
+    "eslint-config-react-native": "^4.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-native": "^3.8.1",
+    "prettier": "^2.0.2",
     "typescript": "~3.8.3"
   },
   "private": true
