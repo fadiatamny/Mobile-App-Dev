@@ -1,21 +1,17 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList } from 'react-native';
 
 import ListItem from './listItem';
 
-const listViewComponent = ({ data }: any): any => {
+const listViewComponent = ({ data, navigation }: any): any => {
 	return (
-		<View>
-			<View>
-				{data && data.length !== 0 ? (
-					data.map((elem: any, index: number) => (
-						<ListItem key={index} item={elem}></ListItem>
-					))
-				) : (
-					<Text> No Results </Text>
-				)}
-			</View>
-		</View>
+		<FlatList
+			data={data}
+			renderItem={({ item, index }) => (
+				<ListItem key={index.toString()} item={item} navigation={navigation}></ListItem>
+			)}
+			keyExtractor={(item) => item.id.toString()}
+		/>
 	);
 };
 

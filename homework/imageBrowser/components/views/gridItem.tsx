@@ -1,14 +1,30 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Dimensions, TouchableOpacity } from 'react-native';
+import { Image } from 'react-native-elements';
 
-const gridItem = ({ item }: any): any => {
-	return (
-		<View>
-			<Text> test</Text>
-		</View>
-	);
+const windowWidth = Dimensions.get('window').width;
+const margins = 10;
+
+const calculatedSize = (): any => {
+	var size = windowWidth / 3
+	return { width: size - margins, height: size - margins }
 };
 
-const styles = StyleSheet.create({});
+const gridItem = ({ item, navigation }: any): any => {
+	return (
+		<TouchableOpacity onPress={() =>
+			navigation.navigate('Image', { image: item })}
+		>
+			<View style={{ margin: 5 }}>
+				<Image
+					source={{ uri: item.previewURL }}
+					style={[
+						calculatedSize()
+					]}
+				/>
+			</View>
+		</TouchableOpacity>
+	);
+};
 
 export default gridItem;

@@ -11,8 +11,9 @@ import {
 	AsyncStorage,
 } from 'react-native';
 
+import { API_KEY, ENDPOINT } from 'react-native-dotenv';
+
 import axios from 'axios';
-const API_KEY = '###ENV###';
 
 import GridView from './views/gridViewComponent';
 import ListView from './views/listViewComponent';
@@ -41,7 +42,7 @@ const clearData = async (): Promise<any> => {
 	}
 };
 
-const homeComponent = (): any => {
+const homeComponent = ({ navigation }: any): any => {
 	const [searchText, setSearchText] = React.useState('');
 	const [loading, setLoading] = React.useState(false);
 	const [viewMode, setViewMode] = React.useState('Grid');
@@ -63,7 +64,7 @@ const homeComponent = (): any => {
 		}
 		setLoading(true);
 		try {
-			const response: any = await axios.get('https://pixabay.com/api/', {
+			const response: any = await axios.get(ENDPOINT, {
 				params: {
 					key: API_KEY,
 					q: searchText,
@@ -137,11 +138,11 @@ const homeComponent = (): any => {
 					<View style={styles.indicator}>
 						<ActivityIndicator size={'large'} color={'#2fcccc'} />
 					</View>
-				) : viewMode === 'Grid' ? (
-					<GridView data={results} />
-				) : (
-					<ListView data={results} />
-				)}
+				) :
+					results.length > 0 ?
+						viewMode === 'Grid' ? (<GridView data={results} navigation={navigation} />) : (<ListView data={results} navigation={navigation} />)
+						: (<Text style={styles.noRes}> No Results </Text>)
+				}
 			</View>
 		</View>
 	);
@@ -152,20 +153,20 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 20,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'center'
 	},
 	safeArea: {
-		backgroundColor: '#1c5470',
+		backgroundColor: '#1c5470'
 	},
 	titleContainer: {
 		backgroundColor: '#2493c7',
-		width: '100%',
+		width: '100%'
 	},
 	title: {
 		fontSize: 32,
 		textAlign: 'center',
 		padding: 15,
-		color: '#e6f0f5',
+		color: '#e6f0f5'
 	},
 	navButtons: {
 		flex: 1,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		maxHeight: '6%',
 		marginBottom: 15,
-		width: '95%',
+		width: '95%'
 	},
 	button: {
 		flex: 1,
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
 		borderColor: '#2493c7',
 		borderWidth: 1,
 		color: '#2493c7',
-		alignContent: 'center',
+		alignContent: 'center'
 	},
 	search: {
 		borderColor: '#2f363c',
@@ -194,16 +195,22 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		fontSize: 28,
 		padding: 10,
-		marginBottom: 20,
+		marginBottom: 20
 	},
 	content: {
 		flex: 1,
+		width: '100%'
 	},
 	indicator: {
 		marginTop: '50%',
 		justifyContent: 'center',
-		alignItems: 'center',
+		alignItems: 'center'
 	},
+	noRes: {
+		textAlign: 'center',
+		fontSize: 28,
+		marginTop: '50%'
+	}
 });
 
 export default homeComponent;
