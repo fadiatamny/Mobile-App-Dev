@@ -6,22 +6,23 @@ const windowWidth = Dimensions.get('window').width;
 const margins = 10;
 
 const calculatedSize = (): any => {
-	var size = windowWidth / 3
-	return { width: size - margins, height: size - margins }
+	const size = windowWidth / 3;
+	return { width: size - margins, height: size - margins };
 };
 
-const gridItem = ({ item, navigation }: any): any => {
+const gridItem = ({ item, selectedBackgroundColor, calledScreen, navigation }: any): any => {
 	return (
-		<TouchableOpacity onPress={() =>
-			navigation.navigate('Image', { image: item })}
+		<TouchableOpacity
+			onPress={(): void =>
+				navigation.navigate('Image', {
+					image: item,
+					selectedBackgroundColor,
+					calledScreen,
+				})
+			}
 		>
 			<View style={{ margin: 5 }}>
-				<Image
-					source={{ uri: item.previewURL }}
-					style={[
-						calculatedSize()
-					]}
-				/>
+				<Image source={{ uri: item.previewURL }} style={[calculatedSize()]} />
 			</View>
 		</TouchableOpacity>
 	);

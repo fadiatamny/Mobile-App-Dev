@@ -3,14 +3,27 @@ import { FlatList } from 'react-native';
 
 import ListItem from './listItem';
 
-const listViewComponent = ({ data, navigation }: any): any => {
+const listViewComponent = ({
+	data,
+	selectedBackgroundColor,
+	calledScreen,
+	navigation,
+}: any): any => {
 	return (
 		<FlatList
 			data={data}
-			renderItem={({ item, index }) => (
-				<ListItem key={index.toString()} item={item} navigation={navigation}></ListItem>
+			renderItem={({ item, index }): any => (
+				<ListItem
+					key={index.toString()}
+					item={item}
+					selectedBackgroundColor={selectedBackgroundColor}
+					calledScreen={calledScreen}
+					navigation={navigation}
+				>
+					{' '}
+				</ListItem>
 			)}
-			keyExtractor={(item) => item.id.toString()}
+			keyExtractor={(item): string => item.id.toString()}
 		/>
 	);
 };

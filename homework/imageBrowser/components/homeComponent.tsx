@@ -4,9 +4,7 @@ import {
 	Text,
 	View,
 	SafeAreaView,
-	TextInput,
 	ActivityIndicator,
-	Button,
 	StatusBar,
 	AsyncStorage,
 } from 'react-native';
@@ -14,7 +12,9 @@ import {
 import { API_KEY, ENDPOINT } from 'react-native-dotenv';
 
 import axios from 'axios';
-
+import Title from './header/titleComponent';
+import SearchBox from './header/searchBoxComponent';
+import Buttons from './header/buttonsComponent';
 import GridView from './views/gridViewComponent';
 import ListView from './views/listViewComponent';
 
@@ -34,9 +34,10 @@ const getData = async (key: string): Promise<any> => {
 	}
 };
 
-const clearData = async (): Promise<any> => {
+const clearCache = async (): Promise<any> => {
 	try {
-		await AsyncStorage.clear();
+		await setData('query', '');
+		await setData('search_results', '[]');
 	} catch (e) {
 		console.log('error occured', e);
 	}
@@ -50,34 +51,35 @@ const homeComponent = ({ navigation }: any): any => {
 	const selectedBackgroundColor = '#2493c7';
 	const selectedTextColor = '#e6f0f5';
 
-	const checkCache = async (): Promise<any> => {
+	const checkCache = async (text: string): Promise<any> => {
 		try {
-			return (await getData('query')) === searchText;
+			return (await getData('query')) === text;
 		} catch (err) {
 			console.log(err);
 		}
 	};
-	const search = async (): Promise<any> => {
-		if (await checkCache()) {
-			setResults(JSON.parse(await getData('search_results')));
-			return;
-		}
+
+	const search = async (text: string): Promise<any> => {
 		setLoading(true);
-		try {
-			const response: any = await axios.get(ENDPOINT, {
-				params: {
-					key: API_KEY,
-					q: searchText,
-				},
-			});
-			await setData('query', searchText);
-			await setData('search_results', JSON.stringify(response.data.hits));
-			setResults(response.data.hits);
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setLoading(false);
-		}
+
+		if (await checkCache(text)) {
+			setResults(JSON.parse(await getData('search_results')));
+		} else
+			try {
+				const response: any = await axios.get(ENDPOINT, {
+					params: {
+						key: API_KEY,
+						q: text,
+					},
+				});
+				await setData('query', text);
+				await setData('search_results', JSON.stringify(response.data.hits));
+				setResults(response.data.hits);
+			} catch (error) {
+				console.log(error);
+			} finally {
+				setLoading(false);
+			}
 	};
 
 	return (
@@ -89,60 +91,53 @@ const homeComponent = ({ navigation }: any): any => {
 				backgroundColor={selectedBackgroundColor}
 				translucent
 			/>
-			<View style={styles.titleContainer}>
-				<Text style={styles.title}>Image Browser</Text>
-			</View>
-			<TextInput
-				style={styles.search}
-				placeholder={'Search'}
-				onChangeText={(text): void => {
-					setSearchText(text);
-					if (text !== '') search();
-					else {
-						clearData();
-						setResults([]);
-					}
-				}}
-				value={searchText}
+			<Title
+				setResults={setResults}
+				getData={getData}
+				setSearchText={setSearchText}
+				navigation={navigation}
+				selectedBackgroundColor={selectedBackgroundColor}
+				sideScreen={false}
+				returnScreen={'Home'}
 			/>
-			<View style={styles.navButtons}>
-				<View
-					style={
-						viewMode === 'Grid'
-							? { ...styles.button, backgroundColor: selectedBackgroundColor }
-							: styles.button
-					}
-				>
-					<Button
-						color={viewMode === 'Grid' ? selectedTextColor : selectedBackgroundColor}
-						title="Go to List View"
-						onPress={(): void => setViewMode('Grid')}
-					/>
-				</View>
-				<View
-					style={
-						viewMode === 'List'
-							? { ...styles.button, backgroundColor: selectedBackgroundColor }
-							: styles.button
-					}
-				>
-					<Button
-						color={viewMode === 'List' ? selectedTextColor : selectedBackgroundColor}
-						title="Go to List View"
-						onPress={(): void => setViewMode('List')}
-					/>
-				</View>
-			</View>
+			<SearchBox
+				searchText={searchText}
+				setSearchText={setSearchText}
+				search={search}
+				clearCache={clearCache}
+				setResults={setResults}
+			/>
+			<Buttons
+				viewMode={viewMode}
+				setViewMode={setViewMode}
+				selectedTextColor={selectedTextColor}
+				selectedBackgroundColor={selectedBackgroundColor}
+			/>
+
 			<View style={styles.content}>
 				{loading ? (
 					<View style={styles.indicator}>
 						<ActivityIndicator size={'large'} color={'#2fcccc'} />
 					</View>
-				) :
-					results.length > 0 ?
-						viewMode === 'Grid' ? (<GridView data={results} navigation={navigation} />) : (<ListView data={results} navigation={navigation} />)
-						: (<Text style={styles.noRes}> No Results </Text>)
-				}
+				) : results.length > 0 ? (
+					viewMode === 'Grid' ? (
+						<GridView
+							data={results}
+							selectedBackgroundColor={selectedBackgroundColor}
+							navigation={navigation}
+							calledScreen={'Home'}
+						/>
+					) : (
+						<ListView
+							data={results}
+							selectedBackgroundColor={selectedBackgroundColor}
+							navigation={navigation}
+							calledScreen={'Home'}
+						/>
+					)
+				) : (
+					<Text style={styles.noRes}> No Results </Text>
+				)}
 			</View>
 		</View>
 	);
@@ -153,64 +148,25 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 20,
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
 	},
 	safeArea: {
-		backgroundColor: '#1c5470'
-	},
-	titleContainer: {
-		backgroundColor: '#2493c7',
-		width: '100%'
-	},
-	title: {
-		fontSize: 32,
-		textAlign: 'center',
-		padding: 15,
-		color: '#e6f0f5'
-	},
-	navButtons: {
-		flex: 1,
-		flexDirection: 'row',
-		alignContent: 'center',
-		textAlign: 'center',
-		maxHeight: '6%',
-		marginBottom: 15,
-		width: '95%'
-	},
-	button: {
-		flex: 1,
-		marginRight: 5,
-		marginLeft: 5,
-		borderRadius: 10,
-		borderColor: '#2493c7',
-		borderWidth: 1,
-		color: '#2493c7',
-		alignContent: 'center'
-	},
-	search: {
-		borderColor: '#2f363c',
-		borderStyle: 'solid',
-		borderBottomWidth: 1,
-		width: '95%',
-		textAlign: 'center',
-		fontSize: 28,
-		padding: 10,
-		marginBottom: 20
+		backgroundColor: '#1c5470',
 	},
 	content: {
 		flex: 1,
-		width: '100%'
+		width: '100%',
 	},
 	indicator: {
 		marginTop: '50%',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 	noRes: {
 		textAlign: 'center',
 		fontSize: 28,
-		marginTop: '50%'
-	}
+		marginTop: '50%',
+	},
 });
 
 export default homeComponent;
