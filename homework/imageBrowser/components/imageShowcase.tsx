@@ -79,8 +79,9 @@ const imageViewComponent = ({ route, navigation }: any): any => {
 				{!isFav ? (
 					<View style={styles.btn}>
 						<Button
-							icon={<Icon name="arrow-right" size={15} color="white" />}
-							title="Button with icon component"
+							buttonStyle={styles.btnStyle}
+							icon={<Icon name="heart" size={50} color="white" />}
+							title=""
 							onPress={async (): Promise<any> => {
 								await addToFavs();
 							}}
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	safeArea: {
-		backgroundColor: '#1c5470',
+		backgroundColor: '#2493c7',
 	},
 	content: {
 		flex: 1,
@@ -113,8 +114,11 @@ const styles = StyleSheet.create({
 		width: '80%',
 	},
 	btn: {
-		width: '80%',
+		width: '80%'
 	},
+	btnStyle: {
+		backgroundColor: '#2493c7'
+	}
 });
 
 export default imageViewComponent;

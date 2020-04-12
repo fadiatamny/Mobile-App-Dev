@@ -8,3 +8,4 @@ node_modules
 ./android/.gradle
 ./android/*.iml
 .env
+.expo-shared

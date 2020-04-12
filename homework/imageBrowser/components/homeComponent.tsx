@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	safeArea: {
-		backgroundColor: '#1c5470',
+		backgroundColor: '#2493c7',
 	},
 	content: {
 		flex: 1,
