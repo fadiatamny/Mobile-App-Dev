@@ -10,10 +10,8 @@
     ],
     "os": "Windows",
     "device": "IOS",
-    "submissionDate": "string",
-    "delay": false,
-    "delayReason": "",
-    "comments": "string"
+    "submissionDate": "17/04/2020",
+    "delay": false
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
