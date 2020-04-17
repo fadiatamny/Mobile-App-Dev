@@ -20,7 +20,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "lint": "npx eslint . --ext .tsx --fix"
+    "lint": "eslint --cache --fix --format codeframe --ext .tsx ."
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.6",
