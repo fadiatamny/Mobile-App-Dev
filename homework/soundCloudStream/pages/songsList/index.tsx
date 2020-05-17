@@ -20,12 +20,12 @@ import SongSearch from '../../models/songSearch';
 const List = ({ navigation }: any): any => {
   const data: SongSearch[] = useSelector((state: any) => state.songs.tracks);
   const loading: boolean = useSelector((state: any) => state.songs.isLoading);
-  const songsAudio = new Audio.Sound();
+  const [audioPlayer] = React.useState(new Audio.Sound());
 
   const playSong = async (stream: URL): Promise<any> => {
-    await songsAudio.unloadAsync();
-    await songsAudio.loadAsync({ uri: `${stream}?client_id=${API_KEY}` });
-    await songsAudio.playAsync();
+    await audioPlayer.unloadAsync();
+    await audioPlayer.loadAsync({ uri: `${stream}?client_id=${API_KEY}` });
+    await audioPlayer.playAsync();
   };
 
   return (
@@ -52,8 +52,8 @@ const List = ({ navigation }: any): any => {
             />
           </View>
         ) : (
-          <Text style={styles.noRes}> No Results </Text>
-        )}
+              <Text style={styles.noRes}> No Results </Text>
+            )}
       </View>
       <Button
         buttonStyle={styles.btn}
