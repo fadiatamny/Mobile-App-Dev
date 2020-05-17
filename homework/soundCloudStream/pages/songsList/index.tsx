@@ -52,8 +52,8 @@ const List = ({ navigation }: any): any => {
             />
           </View>
         ) : (
-              <Text style={styles.noRes}> No Results </Text>
-            )}
+          <Text style={styles.noRes}> No Results </Text>
+        )}
       </View>
       <Button
         buttonStyle={styles.btn}

@@ -4,7 +4,7 @@ import { ListItem } from 'react-native-elements';
 
 import SongSearch from '../../../models/songSearch';
 
-const Item = ({ item }: { children: never[]; item: SongSearch }): any => {
+const Item = ({ item }: { item: SongSearch }): any => {
   return (
     <ListItem
       containerStyle={styles.item}
