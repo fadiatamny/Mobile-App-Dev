@@ -1,12 +1,14 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
+import { ListItem } from 'react-native-elements';
 
 import Header from '../../shared/header';
 
 const Queries = ({ navigation }: any): any => {
   const data: string[] = useSelector((state: any) => state.songs.queries);
-  let count = 1;
+  if (data.length > 0) data.reverse();
+
   return (
     <View style={styles.container}>
       <Header title="Recent Querries" inner navigation={navigation}></Header>
@@ -15,12 +17,14 @@ const Queries = ({ navigation }: any): any => {
           <FlatList
             data={data}
             renderItem={({ item, index }): any => (
-              <Text>
-                {' '}
-                {index + 1}.{item}{' '}
-              </Text>
+              <ListItem
+                containerStyle={styles.item}
+                key={index}
+                title={<Text style={styles.title}>{`\t${item}`}</Text>}
+                bottomDivider
+              />
             )}
-            key={(count++).toString()}
+            keyExtractor={(item: string, index: number): any => index.toString()}
           />
         ) : (
           <Text style={styles.noRes}> No Queries </Text>
@@ -45,6 +49,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 28,
     marginTop: '50%'
+  },
+  item: {
+    backgroundColor: '#fff3ef'
+  },
+  title: {
+    color: '#155877',
+    fontSize: 20
   }
 });
 export default Queries;

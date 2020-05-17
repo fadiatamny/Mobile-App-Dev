@@ -9,7 +9,6 @@ const searchBox = (): any => {
   const old = useSelector((state: any) => state.songs.query);
 
   const queryChange = (text: string): any => {
-    console.log(text);
     if (text === old) return;
     if (changeTimeout) {
       clearTimeout(changeTimeout);

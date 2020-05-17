@@ -19,7 +19,8 @@ export default (state = initialState, action: any): any => {
         ...state,
         isLoading: false,
         tracks: action.payload.data,
-        queries: [...state.queries, action.payload.q],
+        queries:
+          action.payload.q !== '' ? [...state.queries, action.payload.q] : [...state.queries],
         query: action.payload.q
       };
     default:
