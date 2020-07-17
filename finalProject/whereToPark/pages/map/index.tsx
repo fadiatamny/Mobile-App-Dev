@@ -66,9 +66,8 @@ const Map = ({ navigation }: any) => {
           <View style={styles.indicator}>
             <ActivityIndicator size={'large'} color={'#002e94'} />
           </View>
-        ) : (
-          <Menu navigation={navigation} />
-        )}
+        ) : null}
+        <Menu navigation={navigation} />
       </View>
     </SafeAreaView>
   );

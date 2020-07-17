@@ -16,8 +16,9 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height
   },
   indicator: {
+    position: 'absolute',
     top: Dimensions.get('window').height / 2 - 30,
-    left: Dimensions.get('window').width / 2 - 30,
+    left: Dimensions.get('window').width / 2 - 15,
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 3

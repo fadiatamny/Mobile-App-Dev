@@ -2,7 +2,6 @@ import Axios from 'axios';
 import { SET_FOCUS, SET_MARKERS, LOADING, SET_STATE } from '../../services/redux/types';
 import { API_KEY, ENDPOINT } from '../../constants';
 
-import Pin from '../../models/pin.model';
 import * as Location from 'expo-location';
 
 const defaultLoc = {
@@ -13,13 +12,7 @@ const defaultLoc = {
   latitude: 32.0853
 };
 
-export const setLoading = (): any => async (dispatch: any): Promise<void> => {
-  dispatch({
-    type: LOADING
-  });
-};
-
-const fetchMarkers = async (): Promise<Pin[]> => {
+const fetchMarkers = async (): Promise<any> => {
   const res: any = await Axios.get(`${ENDPOINT}/pin/`, {
     headers: {
       'API-KEY': API_KEY
@@ -64,6 +57,9 @@ export const initMap = (): any => async (dispatch: any): Promise<void> => {
 
 export const refreshMarkers = (): any => async (dispatch: any): Promise<void> => {
   try {
+    dispatch({
+      type: LOADING
+    });
     const markers = await fetchMarkers();
     dispatch({
       type: SET_MARKERS,
@@ -75,6 +71,10 @@ export const refreshMarkers = (): any => async (dispatch: any): Promise<void> =>
 };
 
 export const initFocus = (): any => async (dispatch: any): Promise<void> => {
+  dispatch({
+    type: LOADING
+  });
+
   let focus;
 
   try {
@@ -91,6 +91,9 @@ export const initFocus = (): any => async (dispatch: any): Promise<void> => {
 
 export const setFocus = (focus: any): any => async (dispatch: any): Promise<void> => {
   dispatch({
+    type: LOADING
+  });
+  dispatch({
     type: SET_FOCUS,
     payload: { data: focus || defaultLoc }
   });
@@ -99,6 +102,9 @@ export const setFocus = (focus: any): any => async (dispatch: any): Promise<void
 export const removeMarker = (markerId: string, markers: any): any => async (
   dispatch: any
 ): Promise<void> => {
+  dispatch({
+    type: LOADING
+  });
   try {
     await Axios.delete(`${ENDPOINT}/pin/${markerId}`, {
       headers: {
