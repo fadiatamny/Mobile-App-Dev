@@ -1,9 +1,9 @@
-import { SET_USER, SET_FAVS, SET_ALL_FAVS, LOGOUT } from '../../services/redux/types';
+import { SET_USER, SET_ALL_FAVS, LOGOUT } from '../../services/redux/types';
 
 const initialState = {
   username: '',
   name: '',
-  favs: [],
+  favs: []
 };
 
 export default (state = initialState, action: any): any => {
@@ -12,7 +12,7 @@ export default (state = initialState, action: any): any => {
       return {
         ...state,
         username: action.payload.data.username,
-        name: action.payload.data.name,
+        name: action.payload.data.name
       };
     case SET_ALL_FAVS:
       return {
@@ -20,7 +20,7 @@ export default (state = initialState, action: any): any => {
         favs: action.payload.data
       };
     case LOGOUT:
-      return initialState
+      return initialState;
     default:
       return state;
   }

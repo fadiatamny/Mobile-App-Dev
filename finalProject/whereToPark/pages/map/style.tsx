@@ -4,12 +4,12 @@ const styles = StyleSheet.create({
   absoulte: {
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: 0
   },
   container: {
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   mapStyle: {
     width: Dimensions.get('window').width,

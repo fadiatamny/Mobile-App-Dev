@@ -2,13 +2,14 @@ import Axios from 'axios';
 import { SET_USER, SET_ALL_FAVS } from '../../services/redux/types';
 import { API_KEY, ENDPOINT } from '../../constants';
 
-export const login = (username: string, name: string): any => async (dispatch: any): Promise<void> => {
+export const login = (username: string, name: string): any => async (
+  dispatch: any
+): Promise<void> => {
   dispatch({
     type: SET_USER,
-    payload: { data: { username: username, name: name } }
+    payload: { data: { username, name } }
   });
 };
-
 
 export const setFavs = (favs: any): any => async (dispatch: any): Promise<void> => {
   const data = favs.map((element: any) => {
@@ -20,17 +21,23 @@ export const setFavs = (favs: any): any => async (dispatch: any): Promise<void> 
   });
   dispatch({
     type: SET_ALL_FAVS,
-    payload: { data: data }
+    payload: { data }
   });
 };
 
-export const addToFavs = (userEmail: string, pins: any): any => async (dispatch: any): Promise<void> => {
+export const addToFavs = (userEmail: string, pins: any): any => async (
+  dispatch: any
+): Promise<void> => {
   try {
-    const res: any = await Axios.put(`${ENDPOINT}/user/${userEmail}`, { pins: pins }, {
-      headers: {
-        'API-KEY': API_KEY
+    await Axios.put(
+      `${ENDPOINT}/user/${userEmail}`,
+      { pins },
+      {
+        headers: {
+          'API-KEY': API_KEY
+        }
       }
-    })
+    );
     dispatch({
       type: SET_ALL_FAVS,
       payload: { data: pins }
@@ -40,13 +47,19 @@ export const addToFavs = (userEmail: string, pins: any): any => async (dispatch:
   }
 };
 
-export const removeFav = (userEmail: string, pins: any): any => async (dispatch: any): Promise<void> => {
+export const removeFav = (userEmail: string, pins: any): any => async (
+  dispatch: any
+): Promise<void> => {
   try {
-    const res: any = await Axios.put(`${ENDPOINT}/user/${userEmail}`, { pins: pins }, {
-      headers: {
-        'API-KEY': API_KEY
+    await Axios.put(
+      `${ENDPOINT}/user/${userEmail}`,
+      { pins },
+      {
+        headers: {
+          'API-KEY': API_KEY
+        }
       }
-    })
+    );
     dispatch({
       type: SET_ALL_FAVS,
       payload: { data: pins }

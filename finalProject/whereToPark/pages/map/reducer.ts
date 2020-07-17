@@ -3,7 +3,13 @@ import { SET_FOCUS, SET_MARKERS, LOADING, LOGOUT, SET_STATE } from '../../servic
 const initialState = {
   isLoading: true,
   markers: [],
-  focus: { name: 'Negba 7', city: 'Tel Aviv', country: 'Israel', longitude: 34.8233, latitude: 32.07059, }
+  focus: {
+    name: 'Negba 7',
+    city: 'Tel Aviv',
+    country: 'Israel',
+    longitude: 34.8233,
+    latitude: 32.07059
+  }
 };
 
 export default (state = initialState, action: any): any => {
@@ -31,9 +37,9 @@ export default (state = initialState, action: any): any => {
         ...state,
         isLoading: false,
         markers: action.payload.data
-      }
+      };
     case LOGOUT:
-        return initialState
+      return initialState;
     default:
       return state;
   }

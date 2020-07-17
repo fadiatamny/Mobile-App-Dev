@@ -3,12 +3,12 @@ import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store';
 
 const Stack = createStackNavigator();
 
-import Login from './pages/login/newLogin';
+import Login from './pages/login';
 import Home from './pages/home';
 
 const App = (): any => {
