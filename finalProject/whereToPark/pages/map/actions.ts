@@ -4,15 +4,7 @@ import { API_KEY, ENDPOINT } from '../../constants';
 
 import * as Location from 'expo-location';
 
-const defaultLoc = {
-  name: 'Negba 7',
-  city: 'Tel Aviv',
-  country: 'Israel',
-  longitude: 34.781769,
-  latitude: 32.0853
-};
-
-const fetchMarkers = async (): Promise<any> => {
+export const fetchMarkers = async (): Promise<any> => {
   const res: any = await Axios.get(`${ENDPOINT}/pin/`, {
     headers: {
       'API-KEY': API_KEY
@@ -39,19 +31,19 @@ export const initMap = (): any => async (dispatch: any): Promise<void> => {
     type: LOADING
   });
 
-  let pins;
-  let focus;
+  let pinsData;
+  let focusData;
 
   try {
-    pins = await fetchMarkers();
-    focus = await fetchFocus();
+    pinsData = await fetchMarkers();
+    focusData = await fetchFocus();
   } catch (e) {
     console.log(e);
   }
 
   dispatch({
     type: SET_STATE,
-    payload: { data: { pins: pins || [], focus: focus || defaultLoc } }
+    payload: { data: { pins: pinsData, focus: focusData } }
   });
 };
 
@@ -85,7 +77,7 @@ export const initFocus = (): any => async (dispatch: any): Promise<void> => {
 
   dispatch({
     type: SET_FOCUS,
-    payload: { data: focus || defaultLoc }
+    payload: { data: focus }
   });
 };
 
@@ -95,7 +87,7 @@ export const setFocus = (focus: any): any => async (dispatch: any): Promise<void
   });
   dispatch({
     type: SET_FOCUS,
-    payload: { data: focus || defaultLoc }
+    payload: { data: focus }
   });
 };
 

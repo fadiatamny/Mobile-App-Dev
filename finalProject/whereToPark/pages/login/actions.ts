@@ -12,6 +12,7 @@ export const login = (username: string, name: string): any => async (
 };
 
 export const setFavs = (favs: any): any => async (dispatch: any): Promise<void> => {
+  //had to parse some of the elements because of the database.
   const data = favs.map((element: any) => {
     try {
       return JSON.parse(element);
