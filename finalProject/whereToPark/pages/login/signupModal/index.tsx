@@ -56,6 +56,9 @@ const LoginModal = ({ setDisplay, navigation }: any): any => {
       );
       dispatch(login(username, name));
       setLoading(false);
+      setName('');
+      setUserName('');
+      setPassword('');
       navigation.navigate('Home');
     } catch (e) {
       console.log('Error: ' + e);
