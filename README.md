@@ -3,4 +3,5 @@
 
  [Course Git](https://github.com/zivl/mobile-app-development-s20)
  
-# [Final project](./finalProject/whereToPark)
+### [Final project](./finalProject/whereToPark)
+### [Demo Project](https://youtu.be/Uc5ScTMxs-k)
