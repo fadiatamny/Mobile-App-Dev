@@ -12,6 +12,9 @@ class Axios {
   static async put() {
     return Promise.resolve({ data: 'Successfully updated' });
   }
+  static async post() {
+    return Promise.resolve({ data: 'Successfully created' });
+  }
 }
 
 export default Axios;

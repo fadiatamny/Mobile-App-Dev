@@ -7,7 +7,7 @@ import styles from './style';
 
 const image = require('../../assets/splash.png');
 
-const ModalView = ({ navigation }: any): any => {
+const LoginScreen = ({ navigation }: any): any => {
   const userEmail: string = useSelector((state: any) => state.user.username);
   const [display, setDisplay] = React.useState('Login');
 
@@ -26,4 +26,4 @@ const ModalView = ({ navigation }: any): any => {
   );
 };
 
-export default ModalView;
+export default LoginScreen;

@@ -103,7 +103,6 @@ export const removeMarker = (markerId: string, markers: any): any => async (
         'API-KEY': API_KEY
       }
     });
-
     dispatch({
       type: SET_MARKERS,
       payload: { data: markers }
