@@ -31,7 +31,7 @@ export const addToFavs = (userEmail: string, pins: any): any => async (
 ): Promise<void> => {
   try {
     await Axios.put(
-      `${ENDPOINT}/user/${userEmail}`,
+      `${ENDPOINT}/user/${userEmail.toLowerCase()}`,
       { pins },
       {
         headers: {
@@ -53,7 +53,7 @@ export const removeFav = (userEmail: string, pins: any): any => async (
 ): Promise<void> => {
   try {
     await Axios.put(
-      `${ENDPOINT}/user/${userEmail}`,
+      `${ENDPOINT}/user/${userEmail.toLowerCase()}`,
       { pins },
       {
         headers: {

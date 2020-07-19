@@ -1,10 +1,10 @@
 // import React from 'react';
 // import { render } from '@testing-library/react-native';
-// import Home from '../pages/home';
+// import Map from '../pages/map';
 
 describe('Map test', () => {
   test('map rendering test with snapshot', () => {
-    // const { baseElement }: any = render(<Home/>);
+    // const { baseElement }: any = render(<Map/>);
     // expect(baseElement).toMatchSnapshot();
   });
 });

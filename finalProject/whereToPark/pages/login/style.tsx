@@ -72,6 +72,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 3
+  },
+  signupIndicator: {
+    position: 'absolute',
+    top: Dimensions.get('window').height / 2 - 30,
+    left: Dimensions.get('window').width / 2 - 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 3
   }
 });
 

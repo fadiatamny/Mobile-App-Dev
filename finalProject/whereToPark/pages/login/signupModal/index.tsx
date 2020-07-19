@@ -111,7 +111,7 @@ const LoginModal = ({ setDisplay, navigation }: any): any => {
         </TouchableOpacity>
       </View>
       {loading ? (
-        <View style={styles.indicator}>
+        <View style={styles.signupIndicator}>
           <ActivityIndicator size={'large'} color={'#002e94'} />
         </View>
       ) : null}

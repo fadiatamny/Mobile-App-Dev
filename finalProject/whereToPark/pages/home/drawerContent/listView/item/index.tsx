@@ -17,7 +17,7 @@ const Item = ({ item, closeDrawer }: any): any => {
     const array = pins.filter(
       (elem: any) => elem.longitude !== item.longitude && elem.latitude !== item.latitude
     );
-    dispatch(removeFav(username, array));
+    dispatch(removeFav(username.toLowerCase(), array));
   };
 
   return (
